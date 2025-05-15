@@ -215,7 +215,7 @@ const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={toggleMenu}
-            className="p-2 rounded-lg bg-secondary-500 text-white hover:bg-secondary-600 transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-lg bg-secondary-500 text-white hover:bg-secondary-600 transition-colors"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
@@ -229,27 +229,16 @@ const Header: React.FC<HeaderProps> = ({
         {/* Navigation Menu */}
         <div
           className={`
-            fixed left-0 right-0 top-[80px] transition-all duration-300 px-4 sm:px-6
+            absolute left-0 right-0 sm:left-auto sm:right-6 top-[calc(100%+1.25rem)] transition-all duration-300
             ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}
           `}
         >
-          <div className="relative">
-            <div className="absolute right-0 w-full sm:w-64 bg-white rounded-xl shadow-lg border border-gray-100 z-50">
-              <nav className="flex flex-col p-2 gap-1">
-                {renderNavItems()}
-              </nav>
-            </div>
+          <div className="w-full sm:w-64 bg-white rounded-xl shadow-lg border border-gray-100">
+            <nav className="flex flex-col p-2 gap-1">
+              {renderNavItems()}
+            </nav>
           </div>
         </div>
-
-        {/* Backdrop */}
-        {isMenuOpen && (
-          <div
-            className="fixed inset-0 bg-white/50 backdrop-blur-sm transition-opacity duration-300"
-            style={{ top: '73px' }}
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
       </div>
     </header>
   );
