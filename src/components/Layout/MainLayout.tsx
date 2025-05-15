@@ -26,7 +26,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         isStoryScreen={isStoryScreen}
         onShowSavedStories={onShowSavedStories}
       />
-      <main className="flex-1 w-full max-w-7xl mx-auto py-8 sm:py-12 relative">
+      <main className="flex-1 w-full max-w-7xl mx-auto py-8 sm:py-12 relative mt-[73px] px-4">
         {children}
       </main>
       <Footer />

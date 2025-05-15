@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { LogOut, Menu, X, CheckCircle2 } from 'lucide-react';
-import { useAuth } from '../../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Book, PencilSquare, List, Magic } from 'react-bootstrap-icons';
+import { useAuth } from '../../context/AuthContext';
 import { useSubscription } from '../../hooks/useSubscription';
 import { supabase } from '../../lib/supabase';
 import { useStory } from '../../context/StoryContext';
+import { Menu, X, CheckCircle2 } from 'lucide-react';
+import { Magic, ClipboardData, Book, List } from 'react-bootstrap-icons';
 
 interface HeaderProps {
   showTemplates: boolean;
@@ -26,7 +26,6 @@ const Header: React.FC<HeaderProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [hasTemplates, setHasTemplates] = useState(false);
 
   React.useEffect(() => {
@@ -197,7 +196,7 @@ const Header: React.FC<HeaderProps> = ({
   );
 
   return (
-    <header className="w-full bg-white/80 backdrop-blur-sm py-4 px-4 sm:px-6 relative z-50 border-b border-gray-100">
+    <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm py-4 px-4 sm:px-6 z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -214,52 +213,40 @@ const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="px-5 py-2 bg-secondary-500 hover:bg-secondary-600 text-white rounded-full transition-all duration-300 shadow-md hover:shadow-lg group"
-            >
-              <button
-                onClick={toggleMenu}
-                className="flex items-center justify-center w-full"
-                aria-label="Toggle menu"
-              >
-                <div className={`
-                  overflow-hidden transition-all duration-300
-                  ${isHovered ? 'w-[140px]' : 'w-0'}
-                `}>
-                  <span className="whitespace-nowrap">Table of Contents</span>
-                </div>
-                {!isHovered && (isMenuOpen ? (
-                  <X className="h-6 w-6 flex-shrink-0" />
-                ) : (
-                  <Menu className="h-6 w-6 flex-shrink-0" />
-                ))}
-              </button>
-            </div>
-          </div>
+          <button
+            onClick={toggleMenu}
+            className="p-2 rounded-lg bg-secondary-500 text-white hover:bg-secondary-600 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <List className="h-6 w-6" />
+            )}
+          </button>
         </div>
 
         {/* Navigation Menu */}
         <div
           className={`
-            fixed right-4 sm:right-6 top-[calc(100%+0.5rem)] transition-all duration-300
-            ${isMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}
-            sm:w-64 w-[calc(100%-2rem)] bg-white rounded-xl shadow-lg border border-gray-100
-            z-50
+            fixed left-0 right-0 top-[80px] transition-all duration-300 px-4 sm:px-6
+            ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}
           `}
         >
-          <nav className="flex flex-col p-2 gap-1">
-            {renderNavItems()}
-          </nav>
+          <div className="relative">
+            <div className="absolute right-0 w-full sm:w-64 bg-white rounded-xl shadow-lg border border-gray-100 z-50">
+              <nav className="flex flex-col p-2 gap-1">
+                {renderNavItems()}
+              </nav>
+            </div>
+          </div>
         </div>
 
         {/* Backdrop */}
         {isMenuOpen && (
           <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-            style={{ top: '80px' }}
+            className="fixed inset-0 bg-white/50 backdrop-blur-sm transition-opacity duration-300"
+            style={{ top: '73px' }}
             onClick={() => setIsMenuOpen(false)}
           />
         )}
