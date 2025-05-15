@@ -244,9 +244,10 @@ const Header: React.FC<HeaderProps> = ({
         {/* Navigation Menu */}
         <div
           className={`
-            absolute right-4 sm:right-6 top-[calc(100%+0.5rem)] transition-all duration-300
-            ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0 pointer-events-none'}
+            fixed right-4 sm:right-6 top-[calc(100%+0.5rem)] transition-all duration-300
+            ${isMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}
             sm:w-64 w-[calc(100%-2rem)] bg-white rounded-xl shadow-lg border border-gray-100
+            z-50
           `}
         >
           <nav className="flex flex-col p-2 gap-1">
@@ -255,14 +256,13 @@ const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Backdrop */}
-        <div
-          className={`
-            fixed inset-0 bg-white backdrop-blur-sm transition-opacity duration-300
-            ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-          `}
-          style={{ top: '80px' }}
-          onClick={() => setIsMenuOpen(false)}
-        />
+        {isMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+            style={{ top: '80px' }}
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
       </div>
     </header>
   );
