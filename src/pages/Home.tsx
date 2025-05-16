@@ -47,14 +47,14 @@ const Home: React.FC = () => {
   return (
     <MainLayout>
       <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12">
-          <div className="inline-flex items-center justify-center gap-3 mb-4">
-            <Library className="h-8 w-8 sm:h-10 sm:w-10 text-secondary-500 animate-float" />
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary-700 to-primary-500 text-transparent bg-clip-text">
+        <div className="text-center mb-6 sm:mb-8 md:mb-12">
+          <div className="inline-flex items-center justify-center gap-2 sm:gap-3 mb-4">
+            <Library className="hidden sm:block h-8 w-8 md:h-10 md:w-10 text-secondary-500 animate-float" />
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-primary-700 to-primary-500 text-transparent bg-clip-text">
               Little Words, Big Stories!
             </h1>
           </div>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
             Bedtime stories that last forever. We'll create the narrative, so that you can add the magic. Because the most precious moments are the ones you'll have together.
           </p>
         </div>
@@ -65,11 +65,11 @@ const Home: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-16 sm:mt-24">
+        <div className="mt-12 sm:mt-16 md:mt-24">
           <FeatureCarousel />
         </div>
         
-        <div className="mt-12 text-center text-gray-500 text-sm">
+        <div className="mt-12 text-center text-gray-500 text-xs sm:text-sm">
           <p>All stories are unique and generated just for you. Share the joy of reading with your child!</p>
         </div>
       </div>
