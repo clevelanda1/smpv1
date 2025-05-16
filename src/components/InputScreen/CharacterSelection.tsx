@@ -230,7 +230,7 @@ const getColorClasses = (color: string) => {
 };
 
 const renderIcon = (icon: string) => {
-  const iconProps = { className: "w-12 h-12" };
+  const iconProps = { className: "w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" };
   switch (icon) {
     case 'award': return <Award {...iconProps} />;
     case 'joystick': return <Joystick {...iconProps} />;
@@ -412,10 +412,10 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
 
   return (
     <div className="w-full">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <div className="flex items-center gap-2">
-          <h3 className="text-lg font-semibold text-gray-900">Choose Characters</h3>
-          <span className="text-sm text-gray-500">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-3 sm:mb-4 md:mb-6">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900">Choose Characters</h3>
+          <span className="text-xs sm:text-sm text-gray-500">
             ({selectedCharacters.length}/{MAX_CHARACTERS})
           </span>
         </div>
@@ -425,7 +425,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
           onClick={() => setShowCustomizeModal(true)}
           disabled={selectedCharacters.length >= MAX_CHARACTERS}
           className={`
-            inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm
+            inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm
             transition-all duration-200
             ${
               selectedCharacters.length >= MAX_CHARACTERS
@@ -434,29 +434,29 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
             }
           `}
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
           <span>Create Character</span>
         </button>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
         <button
           type="button"
           onClick={prevPage}
-          className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
+          className="p-1 sm:p-1.5 md:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
           aria-label="Previous characters"
           disabled={currentPage === 0}
         >
-          <ChevronLeft className={`w-4 h-4 sm:w-5 sm:h-5 ${currentPage === 0 ? 'text-gray-300' : 'text-gray-700'}`} />
+          <ChevronLeft className={`w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ${currentPage === 0 ? 'text-gray-300' : 'text-gray-700'}`} />
         </button>
 
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-6">
+        <div className="flex-1 grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 md:gap-6">
           {currentCharacters.map((character) => {
             const colorClasses = getColorClasses(character.color);
             const isSelected = selectedCharacters.includes(character.id);
             const isDisabled = !isSelected && selectedCharacters.length >= MAX_CHARACTERS;
             const customization = customizations[character.id];
-
+            
             return (
               <div
                 key={character.id}
@@ -468,7 +468,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
                 <button
                   type="button"
                   className={`
-                    w-full p-4 sm:p-6 rounded-xl transition-all transform
+                    w-full p-3 sm:p-3 md:p-4 lg:p-6 rounded-xl transition-all transform
                     ${
                       isSelected
                         ? 'ring-2 ring-accent-500 shadow-lg bg-white scale-[1.02]'
@@ -485,45 +485,77 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
                         e.stopPropagation();
                         handleDeleteCharacter(character.id);
                       }}
-                      className="absolute top-2 right-2 p-1.5 rounded-full bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white z-20"
+                      className="absolute top-2 right-2 p-1 sm:p-1.5 rounded-full bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white z-20"
                       title="Remove custom character"
                     >
-                      <XLg className="w-3 h-3" />
+                      <XLg className="w-2 h-2 sm:w-3 sm:h-3" />
                     </button>
                   )}
 
-                  <div
-                    className={`
-                      p-3 sm:p-4 rounded-full transition-transform mb-3
-                      ${colorClasses.bg} ${colorClasses.text}
-                      ${isSelected ? 'scale-110' : ''}
-                    `}
-                  >
-                    {renderIcon(customization?.icon || character.icon)}
-                  </div>
-                  
-                  <div className="w-full">
-                    <h3 className="text-xs sm:text-sm font-medium text-gray-900 truncate">
-                      {customization?.name || character.name}
-                    </h3>
+                  {/* Mobile layout with horizontal arrangement */}
+                  <div className="flex xs:flex sm:hidden items-center gap-3">
+                    <div
+                      className={`
+                        p-2 rounded-full transition-transform flex-shrink-0
+                        ${colorClasses.bg} ${colorClasses.text}
+                        ${isSelected ? 'scale-110' : ''}
+                      `}
+                    >
+                      {renderIcon(customization?.icon || character.icon)}
+                    </div>
+                    
+                    <div className="flex-grow">
+                      <h3 className="text-sm font-medium text-gray-900 mb-1">
+                        {customization?.name || character.name}
+                      </h3>
+                      <p className="text-xs text-gray-600 line-clamp-2">
+                        {customization?.description || character.description}
+                      </p>
+                    </div>
+
+                    {isSelected && (
+                      <span className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-secondary-500 text-white w-5 h-5 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-xs">
+                        {selectedCharacters.indexOf(character.id) + 1}
+                      </span>
+                    )}
                   </div>
 
-                  {isSelected && (
-                    <span className="absolute -top-2 -right-2 bg-secondary-500 text-white w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-xs sm:text-sm">
-                      {selectedCharacters.indexOf(character.id) + 1}
-                    </span>
-                  )}
+                  {/* Desktop layout with vertical arrangement */}
+                  <div className="hidden xs:hidden sm:block">
+                    <div
+                      className={`
+                        p-2 sm:p-3 md:p-4 rounded-full transition-transform mb-2 sm:mb-3 mx-auto
+                        ${colorClasses.bg} ${colorClasses.text}
+                        ${isSelected ? 'scale-110' : ''}
+                      `}
+                    >
+                      {renderIcon(customization?.icon || character.icon)}
+                    </div>
+                    
+                    <div className="w-full text-center">
+                      <h3 className="text-xs sm:text-sm font-medium text-gray-900 truncate">
+                        {customization?.name || character.name}
+                      </h3>
+                    </div>
 
-                  <div className="absolute inset-0 bg-black/75 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-4">
-                    <div className="text-white text-sm">
-                      <p className="font-bold mb-2">{customization?.name || character.name}</p>
+                    {isSelected && (
+                      <span className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-secondary-500 text-white w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-[10px] xs:text-xs sm:text-sm">
+                        {selectedCharacters.indexOf(character.id) + 1}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Hover overlay - only on desktop */}
+                  <div className="absolute inset-0 bg-black/75 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-2 sm:p-3 md:p-4 hidden sm:flex">
+                    <div className="text-white text-[10px] xs:text-xs sm:text-sm">
+                      <p className="font-bold mb-1 sm:mb-2">{customization?.name || character.name}</p>
                       <p className="text-white/90">{customization?.description || character.description}</p>
                       {customization?.traits?.length > 0 && (
-                        <div className="mt-2 flex flex-wrap justify-center gap-1">
+                        <div className="mt-1 sm:mt-2 flex flex-wrap justify-center gap-1">
                           {customization.traits.map(trait => (
                             <span
                               key={trait}
-                              className="text-xs px-2 py-0.5 bg-white/20 rounded-full"
+                              className="text-[8px] xs:text-[10px] sm:text-xs px-1 sm:px-2 py-0.5 bg-white/20 rounded-full"
                             >
                               {trait}
                             </span>
@@ -541,15 +573,15 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
         <button
           type="button"
           onClick={nextPage}
-          className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
+          className="p-1 sm:p-1.5 md:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
           aria-label="Next characters"
           disabled={currentPage === totalPages - 1}
         >
-          <ChevronRight className={`w-4 h-4 sm:w-5 sm:h-5 ${currentPage === totalPages - 1 ? 'text-gray-300' : 'text-gray-700'}`} />
+          <ChevronRight className={`w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ${currentPage === totalPages - 1 ? 'text-gray-300' : 'text-gray-700'}`} />
         </button>
       </div>
       
-      <div className="mt-2 flex justify-between items-center text-xs sm:text-sm">
+      <div className="mt-1 sm:mt-2 flex justify-between items-center text-[10px] xs:text-xs sm:text-sm">
         <div className="text-gray-500">
           Page {currentPage + 1} of {totalPages}
         </div>
