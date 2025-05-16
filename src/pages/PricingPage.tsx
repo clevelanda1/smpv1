@@ -5,6 +5,7 @@ import MainLayout from '../components/Layout/MainLayout';
 import PricingTiers from '../components/auth/PricingTiers';
 import { ArrowLeft, Check } from 'lucide-react';
 import BackButton from '../components/ui/BackButton';
+import LanguageTicker from '../components/LanguageTicker';
 
 const PricingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -127,6 +128,11 @@ const PricingPage: React.FC = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Language ticker placed above the support text */}
+        <div className="mt-8 sm:mt-10">
+          <LanguageTicker />
         </div>
 
         <div className="mt-6 sm:mt-8 text-center text-gray-600">

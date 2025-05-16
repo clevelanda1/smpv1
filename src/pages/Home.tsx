@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 import InputForm from '../components/InputScreen/InputForm';
 import MainLayout from '../components/Layout/MainLayout';
 import FeatureCarousel from '../components/FeatureCarousel';
-import LanguageTicker from '../components/LanguageTicker';
 import { Library } from 'lucide-react';
 import { useStory } from '../context/StoryContext';
 
@@ -69,11 +68,6 @@ const Home: React.FC = () => {
         
         <div className="mt-12 sm:mt-16 md:mt-24">
           <FeatureCarousel />
-        </div>
-        
-        {/* Language ticker placed just above the footer text */}
-        <div className="mt-10 sm:mt-12">
-          <LanguageTicker />
         </div>
         
         <div className="mt-6 sm:mt-8 text-center text-gray-500 text-xs sm:text-sm">
