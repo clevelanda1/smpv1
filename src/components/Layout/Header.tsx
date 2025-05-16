@@ -229,7 +229,7 @@ const Header: React.FC<HeaderProps> = ({
         {/* Navigation Menu */}
         <div
           className={`
-            absolute left-0 right-0 sm:left-auto sm:right-6 top-[calc(100%+1.25rem)] transition-all duration-300
+            absolute left-0 right-0 sm:left-auto sm:right-6 top-[calc(100%+25rem)] transition-all duration-300
             ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}
           `}
         >
