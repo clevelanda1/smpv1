@@ -9,14 +9,14 @@ interface Language {
 const languages: Language[] = [
   { name: 'English', nativeName: 'English', textColor: '#0891B2' }, // primary-500
   { name: 'Spanish', nativeName: 'Español', textColor: '#FF6B6B' }, // secondary-500
-  { name: 'French', nativeName: 'Français', textColor: '#10B981' }, // accent-500
-  { name: 'Chinese', nativeName: '简体中文', textColor: '#0891B2' }, // primary-500
-  { name: 'German', nativeName: 'Deutsch', textColor: '#FF6B6B' }, // secondary-500
-  { name: 'Portuguese', nativeName: 'Português', textColor: '#10B981' }, // accent-500
+  { name: 'French', nativeName: 'Français', textColor: '#0891B2' }, // primary-500
+  { name: 'Chinese', nativeName: '简体中文', textColor: '#FF6B6B' }, // secondary-500
+  { name: 'German', nativeName: 'Deutsch', textColor: '#0891B2' }, // primary-500
+  { name: 'Portuguese', nativeName: 'Português', textColor: '#FF6B6B' }, // secondary-500
   { name: 'Italian', nativeName: 'Italiano', textColor: '#0891B2' }, // primary-500
   { name: 'Japanese', nativeName: '日本語', textColor: '#FF6B6B' }, // secondary-500
-  { name: 'Russian', nativeName: 'Русский', textColor: '#10B981' }, // accent-500
-  { name: 'Hindi', nativeName: 'हिन्दी', textColor: '#0891B2' }, // primary-500
+  { name: 'Russian', nativeName: 'Русский', textColor: '#0891B2' }, // primary-500
+  { name: 'Hindi', nativeName: 'हिन्दी', textColor: '#FF6B6B' }, // secondary-500
 ];
 
 const LanguageTicker: React.FC = () => {
