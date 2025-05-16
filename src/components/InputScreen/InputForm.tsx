@@ -171,51 +171,29 @@ const InputForm = () => {
   };
 
   const handleFormInteraction = (e: React.MouseEvent<HTMLElement>) => {
-    if (!user) {
-      const target = e.target as HTMLElement;
-      
-      // Allow interaction with dropdowns and their options
-      if (target.tagName === 'SELECT' || target.tagName === 'OPTION') {
-        return;
-      }
-      
-      // Allow interaction with labels
-      if (target.tagName === 'LABEL') {
-        return;
-      }
-      
-      // Block interaction with buttons and other interactive elements
-      const button = target.closest('button');
-      if (button && 
-          !button.closest('.advanced-options') &&
-          !button.getAttribute('aria-label')?.includes('characters') &&
-          !button.getAttribute('aria-label')?.includes('moods')) {
-        e.preventDefault();
-        e.stopPropagation();
-        navigate('/auth/sign-up');
-      }
+    const target = e.target as HTMLElement;
+    
+    // Allow interaction with dropdowns and their options
+    if (target.tagName === 'SELECT' || target.tagName === 'OPTION') {
+      return;
     }
-
-    if (!hasActiveSubscription) {
-      const target = e.target as HTMLElement;
-      
-      // Allow interaction with dropdowns and their options
-      if (target.tagName === 'SELECT' || target.tagName === 'OPTION') {
-        return;
-      }
-      
-      // Allow interaction with labels
-      if (target.tagName === 'LABEL') {
-        return;
-      }
-      
-      const button = target.closest('button');
-      if (button && 
-          !button.closest('.advanced-options') &&
-          !button.getAttribute('aria-label')?.includes('characters') &&
-          !button.getAttribute('aria-label')?.includes('moods')) {
-        e.preventDefault();
-        e.stopPropagation();
+    
+    // Allow interaction with labels
+    if (target.tagName === 'LABEL') {
+      return;
+    }
+    
+    // Block interaction with buttons and other interactive elements
+    const button = target.closest('button');
+    if (button && 
+        !button.closest('.advanced-options') &&
+        !button.getAttribute('aria-label')?.includes('characters') &&
+        !button.getAttribute('aria-label')?.includes('moods')) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!user) {
+        navigate('/auth/sign-up');
+      } else if (!hasActiveSubscription) {
         navigate('/pricing');
       }
     }

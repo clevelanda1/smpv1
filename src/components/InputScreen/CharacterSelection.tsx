@@ -1,16 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  ChevronRight, 
-  ChevronLeft, 
-  Plus, 
-  Dog,
-  Cat,
-  Mouse,
-  Bird,
-  Crown,
-  Rocket,
-  BookOpen
-} from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronRight, ChevronLeft, Plus } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import CustomCharacterModal from './CustomCharacterModal';
@@ -243,7 +232,6 @@ const getColorClasses = (color: string) => {
 const renderIcon = (icon: string) => {
   const iconProps = { className: "w-12 h-12" };
   switch (icon) {
-    // Bootstrap icons for our new characters
     case 'award': return <Award {...iconProps} />;
     case 'joystick': return <Joystick {...iconProps} />;
     case 'flower': return <Flower2 {...iconProps} />;
@@ -262,16 +250,10 @@ const renderIcon = (icon: string) => {
     case 'dribble': return <Dribbble {...iconProps} />;
     case 'tencent': return <TencentQq {...iconProps} />;
     case 'chat': return <Wechat {...iconProps} />;
-    
-    /* Fallback icons from Lucide
-    case 'dog': return <Dog {...iconProps} />;
-    case 'bookOpen': return <BookOpen {...iconProps} />;*/
-    
-    default: return <BookOpen {...iconProps} />
+    default: return null;
   }
-};;
+};
 
-// Fisher-Yates shuffle algorithm
 const shuffleArray = <T extends unknown>(array: T[]): T[] => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -311,7 +293,6 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
     }
   }, [user]);
 
-  // Shuffle characters on mount
   useEffect(() => {
     setShuffledCharacters(shuffleArray(characters));
   }, []);
@@ -440,6 +421,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
         </div>
         
         <button
+          type="button"
           onClick={() => setShowCustomizeModal(true)}
           disabled={selectedCharacters.length >= MAX_CHARACTERS}
           className={`
@@ -459,6 +441,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
 
       <div className="flex items-center gap-2 sm:gap-4">
         <button
+          type="button"
           onClick={prevPage}
           className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
           aria-label="Previous characters"
@@ -482,9 +465,10 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
                   ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}
                 `}
               >
-                <div
+                <button
+                  type="button"
                   className={`
-                    p-4 sm:p-6 rounded-xl transition-all transform
+                    w-full p-4 sm:p-6 rounded-xl transition-all transform
                     ${
                       isSelected
                         ? 'ring-2 ring-accent-500 shadow-lg bg-white scale-[1.02]'
@@ -492,9 +476,11 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
                     }
                   `}
                   onClick={() => !isDisabled && toggleCharacter(character.id)}
+                  disabled={isDisabled}
                 >
                   {character.isCustom && (
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDeleteCharacter(character.id);
@@ -528,7 +514,6 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
                     </span>
                   )}
 
-                  {/* Hover Description */}
                   <div className="absolute inset-0 bg-black/75 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center p-4">
                     <div className="text-white text-sm">
                       <p className="font-bold mb-2">{customization?.name || character.name}</p>
@@ -547,13 +532,14 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
                       )}
                     </div>
                   </div>
-                </div>
+                </button>
               </div>
             );
           })}
         </div>
         
         <button
+          type="button"
           onClick={nextPage}
           className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
           aria-label="Next characters"

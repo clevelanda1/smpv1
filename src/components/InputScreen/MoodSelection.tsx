@@ -67,6 +67,7 @@ const MoodSelection: React.FC<MoodSelectionProps> = ({ selectedMoods, onChange }
     <div className="w-full">
       <div className="flex items-center gap-2 sm:gap-4">
         <button
+          type="button"
           onClick={prevPage}
           className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
           aria-label="Previous moods"
@@ -79,6 +80,7 @@ const MoodSelection: React.FC<MoodSelectionProps> = ({ selectedMoods, onChange }
           {currentMoods.map((mood) => (
             <button
               key={mood}
+              type="button"
               className={`
                 py-2 sm:py-3 px-3 sm:px-4 rounded-full text-center transition-all relative text-sm sm:text-base
                 ${
@@ -106,6 +108,7 @@ const MoodSelection: React.FC<MoodSelectionProps> = ({ selectedMoods, onChange }
         </div>
         
         <button
+          type="button"
           onClick={nextPage}
           className="p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
           aria-label="Next moods"
