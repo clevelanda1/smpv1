@@ -46,16 +46,18 @@ const languages = [
 ];
 
 const placeholderExamples = [
-  "Include a lesson about sharing with others",
-  "Focus on overcoming fear of the dark",
-  "Include themes about making new friends",
-  "Add elements about dealing with a new sibling",
-  "Include messages about being kind to animals",
-  "Focus on the importance of telling the truth",
-  "Add themes about trying new foods",
-  "Include lessons about patience and persistence",
-  "Focus on dealing with different emotions",
-  "Add elements about respecting differences",
+  "Include a lesson about telling the truth and being honest", 
+  "Focus on understanding and caring about others’ feelings (empathy and compassion)", 
+  "Add elements about respecting differences and celebrating diversity", 
+  "Include messages about accepting responsibility for your actions", 
+  "Focus on the importance of patience and persistence", 
+  "Add themes about being kind to people and animals", 
+  "Include lessons about making and keeping friends", 
+  "Focus on dealing with and expressing different emotions", 
+  "Add elements about working together as a team and sharing", 
+  "Include messages about being grateful and appreciating what you have", 
+  "Focus on standing up for yourself and others in a respectful way", 
+  "Add themes about coping with disappointment and not always getting what you want",
 ];
 
 const InputForm = () => {
@@ -200,18 +202,18 @@ const InputForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} onClick={handleFormInteraction} className="space-y-8 sm:space-y-12">
-      <div className="space-y-6 sm:space-y-8">
+    <form onSubmit={handleSubmit} onClick={handleFormInteraction} className="space-y-6 sm:space-y-8 md:space-y-12">
+      <div className="space-y-4 sm:space-y-6">
         {/* Basic Information Section */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6 space-y-6 hover:shadow-xl transition-shadow duration-300">
-          <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-            <Bookmark className="w-5 h-5 text-accent-500" />
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Basic Information</h2>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center gap-2 sm:gap-3 pb-3 sm:pb-4 border-b border-gray-100">
+            <Bookmark className="w-4 h-4 sm:w-5 sm:h-5 text-accent-500" />
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900">Basic Information</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="space-y-2">
-              <label htmlFor="childName" className="block text-sm font-medium text-gray-700">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+            <div className="space-y-1 sm:space-y-2">
+              <label htmlFor="childName" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Child's Name
               </label>
               <input
@@ -224,20 +226,20 @@ const InputForm = () => {
                     setValidationError(validateForm());
                   }
                 }}
-                className="w-full h-[52px] px-4 text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 placeholder-gray-400"
+                className="w-full h-[42px] sm:h-[52px] px-3 sm:px-4 text-sm sm:text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 placeholder-gray-400"
                 placeholder="Enter name"
               />
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="developmentalStage" className="block text-sm font-medium text-gray-700">
+            <div className="space-y-1 sm:space-y-2">
+              <label htmlFor="developmentalStage" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Development Stage
               </label>
               <select
                 id="developmentalStage"
                 value={state.input.developmentalStage}
                 onChange={(e) => updateInput({ developmentalStage: e.target.value as any })}
-                className="w-full h-[52px] px-4 pr-10 text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 appearance-none"
+                className="w-full h-[42px] sm:h-[52px] px-3 sm:px-4 pr-8 sm:pr-10 text-sm sm:text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 appearance-none"
                 style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.75rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
               >
                 {developmentalStages.map((stage) => (
@@ -251,15 +253,15 @@ const InputForm = () => {
         </div>
 
         {/* Story Settings Section */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6 space-y-6 hover:shadow-xl transition-shadow duration-300">
-          <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-            <Clock className="w-5 h-5 text-accent-500" />
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Story Settings</h2>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center gap-2 sm:gap-3 pb-3 sm:pb-4 border-b border-gray-100">
+            <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-accent-500" />
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900">Story Settings</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="space-y-2">
-              <label htmlFor="storyLength" className="block text-sm font-medium text-gray-700">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+            <div className="space-y-1 sm:space-y-2">
+              <label htmlFor="storyLength" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Story Length
               </label>
               <div className={`relative ${isStarterPlan ? 'cursor-not-allowed' : ''}`}>
@@ -268,7 +270,7 @@ const InputForm = () => {
                   value={state.input.storyLength}
                   onChange={(e) => updateInput({ storyLength: e.target.value as '5' | '10' | '15' })}
                   className={`
-                    w-full h-[52px] px-4 pr-10 text-base rounded-xl border border-gray-200 
+                    w-full h-[42px] sm:h-[52px] px-3 sm:px-4 pr-8 sm:pr-10 text-sm sm:text-base rounded-xl border border-gray-200 
                     focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 
                     appearance-none
                     ${isStarterPlan ? 'opacity-75 cursor-not-allowed bg-gray-100' : ''}
@@ -285,15 +287,15 @@ const InputForm = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="language" className="block text-sm font-medium text-gray-700">
+            <div className="space-y-1 sm:space-y-2">
+              <label htmlFor="language" className="block text-xs sm:text-sm font-medium text-gray-700">
                 Story Language
               </label>
               <select
                 id="language"
                 value={state.input.language}
                 onChange={(e) => updateInput({ language: e.target.value as typeof languages[number]['value'] })}
-                className="w-full h-[52px] px-4 pr-10 text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 appearance-none"
+                className="w-full h-[42px] sm:h-[52px] px-3 sm:px-4 pr-8 sm:pr-10 text-sm sm:text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 appearance-none"
                 style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.75rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
               >
                 {languages.map((lang) => (
@@ -307,14 +309,14 @@ const InputForm = () => {
         </div>
 
         {/* Mood Selection Section */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6 space-y-6 hover:shadow-xl transition-shadow duration-300">
-          <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-            <ClipboardMinus className="w-5 h-5 text-accent-500" />
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Child's Mood</h2>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center gap-2 sm:gap-3 pb-3 sm:pb-4 border-b border-gray-100">
+            <ClipboardMinus className="w-4 h-4 sm:w-5 sm:h-5 text-accent-500" />
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900">Child's Mood</h2>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-4">
+            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-4">
               How is your child feeling today? (Select up to 3)
             </label>
             <MoodSelection
@@ -330,14 +332,14 @@ const InputForm = () => {
         </div>
 
         {/* Character Selection Section */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6 space-y-6 hover:shadow-xl transition-shadow duration-300">
-          <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-            <Rocket className="w-5 h-5 text-accent-500" />
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Story Characters</h2>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center gap-2 sm:gap-3 pb-3 sm:pb-4 border-b border-gray-100">
+            <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-accent-500" />
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900">Story Characters</h2>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-4">
+            <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-4">
               Choose main characters for the story (Select up to 2)
             </label>
             <CharacterSelection
@@ -354,14 +356,14 @@ const InputForm = () => {
         </div>
 
         {/* Additional Details Section */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 sm:p-6 space-y-6 hover:shadow-xl transition-shadow duration-300">
-          <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-            <ChatLeft className="w-5 h-5 text-accent-500" />
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Additional Details</h2>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 hover:shadow-xl transition-shadow duration-300">
+          <div className="flex items-center gap-2 sm:gap-3 pb-3 sm:pb-4 border-b border-gray-100">
+            <ChatLeft className="w-4 h-4 sm:w-5 sm:h-5 text-accent-500" />
+            <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900">Additional Details</h2>
           </div>
 
           <div>
-            <label htmlFor="additionalDetails" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="additionalDetails" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
               Any specific or personal related elements to include? (optional) - Press Tab for suggestions
             </label>
             <textarea
@@ -370,7 +372,7 @@ const InputForm = () => {
               onChange={(e) => updateInput({ additionalDetails: e.target.value })}
               onKeyDown={handleDetailsKeyDown}
               placeholder={placeholderExamples[placeholderIndex]}
-              className="w-full px-4 py-3 text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 h-24 placeholder-gray-400"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-gray-50 h-20 sm:h-24 placeholder-gray-400"
             />
           </div>
         </div>
@@ -386,8 +388,8 @@ const InputForm = () => {
       </div>
 
       {hasAttemptedSubmit && validationError && (
-        <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-lg">
-          <p className="text-red-700">{validationError}</p>
+        <div className="bg-red-50 border-l-4 border-red-400 p-3 sm:p-4 rounded-lg">
+          <p className="text-xs sm:text-sm text-red-700">{validationError}</p>
         </div>
       )}
 
@@ -396,15 +398,15 @@ const InputForm = () => {
           type="submit"
           disabled={isSubmitting}
           className={`
-            flex items-center justify-center gap-2
-            w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-lg sm:text-xl font-medium text-white rounded-full
+            flex items-center justify-center gap-1 sm:gap-2
+            w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-base sm:text-lg md:text-xl font-medium text-white rounded-full
             transition-all transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-secondary-300
             ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-accent-400 hover:bg-secondary-600 shadow-lg hover:shadow-xl'}
           `}
         >
           {isSubmitting ? (
             <>
-              <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin -ml-1 mr-1 sm:mr-2 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
@@ -412,7 +414,7 @@ const InputForm = () => {
             </>
           ) : (
             <>
-              <Shuffle className="w-6 h-6" />
+              <Shuffle className="w-5 h-5 sm:w-6 sm:h-6" />
               Generate Story
             </>
           )}
