@@ -48,14 +48,14 @@ const Dashboard: React.FC = () => {
     }} />
   ) : (
     <div className="max-w-4xl mx-auto px-4">
-      <div className="text-center mb-8 sm:mb-12">
-        <div className="inline-flex items-center justify-center gap-3 mb-4">
-          <Library className="h-8 w-8 sm:h-10 sm:w-10 text-secondary-500" />
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600">
+      <div className="text-center mb-6 sm:mb-8 md:mb-12">
+        <div className="inline-flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+          <Library className="hidden sm:block h-8 w-8 md:h-10 md:w-10 text-secondary-500" />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary-600">
             Magic Bookshelf!
           </h1>
         </div>
-        <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
           Turn bedtime into the most exciting part of the night with stories & adventures that are relatable for your little ones!
         </p>
       </div>
@@ -70,12 +70,10 @@ const Dashboard: React.FC = () => {
           onClearTemplate={handleClearTemplate}
         />
       )}
-
       <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-4 sm:p-8 md:p-10">
         <InputForm />
       </div>
-
-      <div className="mt-12 space-y-6">
+      <div className="mt-8 sm:mt-10 md:mt-12 space-y-4 sm:space-y-6">
         <FeedbackForm />
         <StoryUsageStatus />
       </div>
