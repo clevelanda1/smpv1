@@ -1,19 +1,16 @@
-/*import React, { useEffect } from 'react';
-import MainLayout from '../Layout/MainLayout';
+import React, { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useSubscription } from '../hooks/useSubscription';
+import { useStripe } from '../hooks/useStripe';
+import MainLayout from '../components/Layout/MainLayout';
+import BackButton from '../components/ui/BackButton';
 import { Check } from 'lucide-react';
-import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { useStripe } from '../../hooks/useStripe';
-import { useSubscription } from '../../hooks/useSubscription';
 import toast from 'react-hot-toast';
-import { STRIPE_PRODUCTS } from '../../stripe-config';
-import BackButton from '../ui/BackButton';
-import { ArrowLeft } from 'react-bootstrap-icons';
 
-const PricingPage: React.FC = () => {
+const SubscriptionPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchParams] = useSearchParams();
   const { user } = useAuth();
   const { createCheckoutSession, loading: checkoutLoading } = useStripe();
   const { 
@@ -23,15 +20,12 @@ const PricingPage: React.FC = () => {
     subscriptionDetails,
     cancelSubscription 
   } = useSubscription();
-  const view = searchParams.get('view');
 
   useEffect(() => {
-    const sessionId = searchParams.get('session_id');
-    if (sessionId && user) {
-      console.log('Checking subscription after Stripe redirect');
+    if (user) {
       checkSubscriptionStatus();
     }
-  }, [searchParams, user]);
+  }, [user]);
 
   const handleSubscriptionAction = async (plan: 'starter' | 'family') => {
     try {
@@ -40,7 +34,7 @@ const PricingPage: React.FC = () => {
         return;
       }
 
-      if (isCurrentPlan(STRIPE_PRODUCTS[plan].priceId)) {
+      if (isCurrentPlan(plan)) {
         await cancelSubscription();
         toast.success('Subscription cancelled. You will have access until the end of your billing period.');
         return;
@@ -63,13 +57,18 @@ const PricingPage: React.FC = () => {
     }
   };
 
-  const isCurrentPlan = (priceId: string) => {
-    return subscriptionDetails?.price_id === priceId && hasActiveSubscription;
+  const isCurrentPlan = (plan: string) => {
+    if (plan === 'starter') {
+      return subscriptionDetails?.price_id === 'price_1RMjaQPLXvC55IxstFbeHc3I' && hasActiveSubscription;
+    }
+    if (plan === 'family') {
+      return subscriptionDetails?.price_id === 'price_1ROmz0AdgMakcX19zsnEttn0' && hasActiveSubscription;
+    }
+    return false;
   };
 
   const getButtonText = (plan: 'starter' | 'family') => {
-    if (!user) return 'Start Free Trial';
-    if (isCurrentPlan(STRIPE_PRODUCTS[plan].priceId)) {
+    if (isCurrentPlan(plan)) {
       return subscriptionDetails?.cancel_at_period_end ? 'Subscription Canceled' : 'Cancel Subscription';
     }
     if (hasActiveSubscription) {
@@ -80,10 +79,6 @@ const PricingPage: React.FC = () => {
 
   const getButtonClasses = (plan: 'starter' | 'family', isCurrentPlan: boolean) => {
     const baseClasses = "w-full py-3 px-6 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg text-white text-sm";
-    
-    if (!user) {
-      return `${baseClasses} bg-accent-400 hover:bg-accent-500 transform hover:scale-105`;
-    }
     
     if (isCurrentPlan) {
       if (subscriptionDetails?.cancel_at_period_end) {
@@ -102,32 +97,41 @@ const PricingPage: React.FC = () => {
   };
 
   const isButtonDisabled = (plan: 'starter' | 'family') => {
-    if (isCurrentPlan(STRIPE_PRODUCTS[plan].priceId) && subscriptionDetails?.cancel_at_period_end) {
+    if (isCurrentPlan(plan) && subscriptionDetails?.cancel_at_period_end) {
       return true;
     }
     return checkoutLoading;
   };
 
+  if (subscriptionLoading) {
+    return (
+      <MainLayout>
+        <div className="max-w-3xl mx-auto flex items-center justify-center min-h-[60vh]">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500" />
+        </div>
+      </MainLayout>
+    );
+  }
+
   return (
     <MainLayout>
-      <div className="max-w-3xl mx-auto px-4">
-        <BackButton
-          to={user ? '/dashboard' : '/'} 
-          label={user ? 'Back to Story Creator' : 'Back to Home'} 
-        />
+      <div className="max-w-3xl mx-auto">
+        <BackButton to="/dashboard" label="Back to Story Creator" />
 
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-3">
-            Simple, Transparent Pricing
+            Manage Your Subscription
           </h1>
           <p className="text-lg text-gray-600">
-            Choose the perfect plan for your family!
+            {hasActiveSubscription 
+              ? 'Update or manage your current subscription plan'
+              : 'Choose a plan to start creating magical stories'}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Basic Plan 
-          <div className="bg-white rounded-2xl shadow-xl border border-accent-100 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+          {/* Basic Plan */}
+          <div className="bg-white rounded-2xl shadow-xl border border-accent-100 overflow-hidden">
             <div className="bg-gradient-to-r from-accent-500 to-accent-400 p-6 text-white text-center">
               <h2 className="text-xl font-bold mb-px">Storybook Starter</h2>
               <p className="text-accent-50 text-sm">Personalized stories for your little reader</p>
@@ -161,21 +165,21 @@ const PricingPage: React.FC = () => {
               <button
                 onClick={() => handleSubscriptionAction('starter')}
                 disabled={isButtonDisabled('starter')}
-                className={getButtonClasses('starter', isCurrentPlan(STRIPE_PRODUCTS.starter.priceId))}
+                className={getButtonClasses('starter', isCurrentPlan('starter'))}
               >
                 {getButtonText('starter')}
               </button>
 
-              {!hasActiveSubscription && (
-                <p className="text-center text-xs text-gray-600 mt-4">
-                  5-day free trial, cancel anytime
+              {isCurrentPlan('starter') && subscriptionDetails?.cancel_at_period_end && (
+                <p className="text-sm text-gray-500 mt-4">
+                  Your subscription will end on {new Date(subscriptionDetails.current_period_end * 1000).toLocaleDateString()}
                 </p>
               )}
             </div>
           </div>
 
-          {/* Unlimited Plan 
-          <div className="bg-white rounded-2xl shadow-xl border border-primary-100 overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">            
+          {/* Unlimited Plan */}
+          <div className="bg-white rounded-2xl shadow-xl border border-primary-100 overflow-hidden">            
             <div className="bg-gradient-to-r from-primary-500 to-primary-400 p-6 text-white text-center">
               <h2 className="text-xl font-bold mb-px">Family Magic</h2>
               <p className="text-primary-50 text-sm">Endless stories for the entire family</p>
@@ -209,14 +213,14 @@ const PricingPage: React.FC = () => {
               <button
                 onClick={() => handleSubscriptionAction('family')}
                 disabled={isButtonDisabled('family')}
-                className={getButtonClasses('family', isCurrentPlan(STRIPE_PRODUCTS.family.priceId))}
+                className={getButtonClasses('family', isCurrentPlan('family'))}
               >
                 {getButtonText('family')}
               </button>
 
-              {!hasActiveSubscription && (
-                <p className="text-center text-xs text-gray-600 mt-4">
-                  5-day free trial, cancel anytime
+              {isCurrentPlan('family') && subscriptionDetails?.cancel_at_period_end && (
+                <p className="text-sm text-gray-500 mt-4">
+                  Your subscription will end on {new Date(subscriptionDetails.current_period_end * 1000).toLocaleDateString()}
                 </p>
               )}
             </div>
@@ -224,7 +228,7 @@ const PricingPage: React.FC = () => {
         </div>
 
         <div className="mt-8 text-center text-gray-600">
-          <p className="mb-3 text-sm">Questions? We're here to help!</p>
+          <p className="mb-3 text-sm">Need help with your subscription?</p>
           <a href="#" className="text-primary-500 hover:text-primary-600 underline text-sm">
             Contact our support team
           </a>
@@ -234,4 +238,4 @@ const PricingPage: React.FC = () => {
   );
 };
 
-export default PricingPage;*/
+export default SubscriptionPage;

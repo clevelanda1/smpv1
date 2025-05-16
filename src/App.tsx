@@ -8,7 +8,8 @@ import Dashboard from './pages/Dashboard';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import ResetPassword from './pages/auth/ResetPassword';
-import PricingPage from './components/PricingScreen/PricingPage';
+import PricingPage from './pages/PricingPage';
+import SubscriptionPage from './pages/SubscriptionPage';
 import PrivateRoute from './components/auth/PrivateRoute';
 
 const App: React.FC = () => {
@@ -27,6 +28,7 @@ const App: React.FC = () => {
             {/* Protected routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/subscription" element={<SubscriptionPage />} />
             </Route>
 
             {/* Redirect /home to /dashboard for authenticated users */}
