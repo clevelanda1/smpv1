@@ -57,7 +57,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         options: {
           data: {
             full_name: name
-          }
+          },
+          emailRedirectTo: 'https://storymagicplus.com/auth/callback'
         }
       });
 
@@ -89,7 +90,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: 'https://storymagicplus.com/auth/callback',
           queryParams: {
             access_type: 'offline',
             prompt: 'consent'
@@ -123,7 +124,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const resetPassword = async (email: string) => {
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/reset-password`,
+        redirectTo: 'https://storymagicplus.com/auth/callback',
       });
 
       if (error) throw error;

@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import ResetPassword from './pages/auth/ResetPassword';
+import AuthCallback from './pages/auth/AuthCallback';
 import PricingPage from './pages/PricingPage';
 import SubscriptionPage from './pages/SubscriptionPage';
 import PrivateRoute from './components/auth/PrivateRoute';
@@ -24,6 +25,7 @@ const App: React.FC = () => {
             <Route path="/auth/sign-in" element={<SignIn />} />
             <Route path="/auth/sign-up" element={<SignUp />} />
             <Route path="/auth/reset-password" element={<ResetPassword />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             
             {/* Protected routes */}
             <Route element={<PrivateRoute />}>
