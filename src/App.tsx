@@ -8,7 +8,7 @@ import Dashboard from './pages/Dashboard';
 import SignIn from './pages/auth/SignIn';
 import SignUp from './pages/auth/SignUp';
 import ResetPassword from './pages/auth/ResetPassword';
-import AuthCallback from './pages/auth/AuthCallback';
+import AuthCallback from './pages/auth/authCallback';
 import PricingPage from './pages/PricingPage';
 import SubscriptionPage from './pages/SubscriptionPage';
 import PrivateRoute from './components/auth/PrivateRoute';

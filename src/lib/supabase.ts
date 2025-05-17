@@ -12,8 +12,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
-    flowType: 'pkce'
-    // Add this line for redirect URL:
-    redirectTo: 'https://storymagicplus.com/auth/callback'
+    flowType: 'pkce',
+    redirectTo: 'https://storymagicplus.com/auth/callback' // Add this line for redirect URL
   }
 });
