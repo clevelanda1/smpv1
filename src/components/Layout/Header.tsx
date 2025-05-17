@@ -207,7 +207,7 @@ const Header: React.FC<HeaderProps> = ({
               <h1 className="text-xl sm:text-2xl bg-gradient-to-r from-primary-700 to-primary-500 text-transparent bg-clip-text">
                 <span className="font-bold">StoryMagic</span><span className="font-light"> Plus</span>
               </h1>
-              <p className="text-xs text-gray-500 hidden sm:block">
+              <p className="text-xs text-gray-500">
                 Personalized stories for little readers
               </p>
             </div>
